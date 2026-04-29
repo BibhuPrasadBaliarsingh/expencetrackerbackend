@@ -15,6 +15,7 @@
    - `npm install`
 2. Create `.env` (copy from `.env.example`) and set:
    - `MONGO_URI`
+     - (or `MONGODB_URI`)
    - `JWT_SECRET`
 3. Run:
    - Dev: `npm run dev`
@@ -43,4 +44,3 @@ Point your frontend API base URL to your backend URL (example):
 - Local: `http://localhost:8000`
 
 Requests to protected endpoints must include the `Authorization` header using the JWT returned by login/register.
-

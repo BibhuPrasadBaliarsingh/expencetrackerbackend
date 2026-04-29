@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 export const connectDB = async () => {
-  const mongoUri = process.env.MONGO_URI;
+  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
   if (!mongoUri) {
-    throw new Error("MONGO_URI is not set in environment variables");
+    throw new Error("MONGO_URI (or MONGODB_URI) is not set in environment variables");
   }
 
   mongoose.set("strictQuery", true);
@@ -12,4 +12,3 @@ export const connectDB = async () => {
   // eslint-disable-next-line no-console
   console.log(`MongoDB connected: ${conn.connection.host}`);
 };
-
