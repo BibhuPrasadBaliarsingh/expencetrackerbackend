@@ -9,6 +9,10 @@ export const errorHandler = (err, req, res, next) => {
   // eslint-disable-next-line no-unused-vars
   const _next = next;
 
+  // Always log server errors (useful for Render logs)
+  // eslint-disable-next-line no-console
+  console.error(err);
+
   let statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
   let message = err.message || "Server Error";
 
@@ -30,4 +34,3 @@ export const errorHandler = (err, req, res, next) => {
     ...(process.env.NODE_ENV === "production" ? {} : { stack: err.stack }),
   });
 };
-
