@@ -7,6 +7,17 @@ const signToken = (userId) => {
   return jwt.sign({ id: userId }, secret, { expiresIn: "7d" });
 };
 
+const toPublicUser = (user) => ({
+  id: user._id,
+  name: user.name,
+  lastname: user.lastname || "",
+  email: user.email,
+  phone: user.phone || "",
+  income: user.income ?? 0,
+  gender: user.gender || "",
+  profile_img: user.profile_img || "",
+});
+
 // POST /api/auth/register
 export const registerUser = async (req, res, next) => {
   try {
@@ -26,7 +37,7 @@ export const registerUser = async (req, res, next) => {
 
     return res.status(201).json({
       token,
-      user: { id: user._id, name: user.name, email: user.email },
+      user: toPublicUser(user),
     });
   } catch (err) {
     return next(err);
@@ -52,10 +63,9 @@ export const loginUser = async (req, res, next) => {
 
     return res.json({
       token,
-      user: { id: user._id, name: user.name, email: user.email },
+      user: toPublicUser(user),
     });
   } catch (err) {
     return next(err);
   }
 };
-
